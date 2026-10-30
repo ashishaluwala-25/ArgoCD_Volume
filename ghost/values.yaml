@@ -10,6 +10,10 @@
 ## @param global.imagePullSecrets Global Docker registry secret names as an array
 ## @param global.defaultStorageClass Global default StorageClass for Persistent Volume(s)
 ##
+replicaCount: 1
+
+diagnosticMode:
+  enabled: false
 global:
   imageRegistry: ""
   ## E.g.
@@ -114,7 +118,7 @@ ghostUsername: admin
 ## @param ghostPassword Ghost user password
 ## Defaults to a random 10-character alphanumeric string if not set
 ##
-ghostPassword: "Ghost12345"
+ghostPassword: "admin123456"
 ## @param existingSecret Name of existing secret containing Ghost credentials
 ## NOTE: Must contain key `ghost-password`
 ## NOTE: When it's set, the `ghostPassword` parameter is ignored
@@ -122,13 +126,13 @@ ghostPassword: "Ghost12345"
 existingSecret: ""
 ## @param ghostEmail Ghost user email
 ##
-ghostEmail: user@example.com
+ghostEmail: admin@example.com
 ## @param ghostBlogTitle Ghost Blog title
 ##
-ghostBlogTitle: User's Blog
+ghostBlogTitle: My Ghost Blog
 ## @param ghostHost Ghost host to create application URLs
 ##
-ghostHost: "aa8fb5e6183e5431184191c02d5b2999-330843731.us-east-2.elb.amazonaws.com"
+ghostHost: ""
 ## @param ghostPath URL sub path where to server the Ghost application
 ##
 ghostPath: /
@@ -493,7 +497,7 @@ ingress:
   enabled: false
   ## @param ingress.pathType Ingress path type
   ##
-  pathType: ImplementationSpecific
+  pathType: Prefix
   ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
   ##
   apiVersion: ""
@@ -612,10 +616,10 @@ persistence:
   ## @param persistence.accessModes [array] Persistent Volume access modes
   ##
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   ## @param persistence.size Persistent Volume size
   ##
-  size: 100Gi
+  size: 8Gi
   ## @param persistence.existingClaim The name of an existing PVC to use for persistence
   ##
   existingClaim: ghost-uploads-pvc
@@ -706,10 +710,10 @@ mysql:
   ##      https://github.com/bitnami/containers/tree/main/bitnami/mysql/#creating-a-database-on-first-run
   ##      https://github.com/bitnami/containers/tree/main/bitnami/mysql/#creating-a-database-user-on-first-run
   auth:
-    rootPassword: "Root12345"
+    rootPassword: "admin123456"
     database: bitnami_ghost
     username: bn_ghost
-    password: "Ghost12345"
+    password: "admin123"
     existingSecret: ""
   ## MySQL Primary configuration
   ##
