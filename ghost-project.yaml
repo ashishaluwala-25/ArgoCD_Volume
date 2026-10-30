@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: deploy
+  namespace: argocd
+spec:
+  description: Ghost Blog project
+  sourceRepos:
+    - https://github.com/ashishaluwala-25/Ghost.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: app
+  clusterResourceWhitelist:
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition

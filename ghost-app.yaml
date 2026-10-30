@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ghost
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io   # optional: deleting the app also deletes its resources
+spec:
+  project: deploy
+  source:
+    repoURL: https://github.com/ashishaluwala-25/Ghost.git
+    targetRevision: main
+    path: ghost
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 3m
