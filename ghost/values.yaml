@@ -128,7 +128,7 @@ ghostEmail: user@example.com
 ghostBlogTitle: User's Blog
 ## @param ghostHost Ghost host to create application URLs
 ##
-ghostHost: "blog.example.com"
+ghostHost: "aa8fb5e6183e5431184191c02d5b2999-330843731.us-east-2.elb.amazonaws.com"
 ## @param ghostPath URL sub path where to server the Ghost application
 ##
 ghostPath: /
@@ -605,7 +605,7 @@ persistence:
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
   ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
   ##
-  storageClass: ""
+  storageClass: ebs-gp3
   ## @param persistence.annotations Additional custom annotations for the PVC
   ##
   annotations: {}
